@@ -1,0 +1,45 @@
+12)
+Write a program to implement MySQL/MongoDB database connectivity with PHP/ 
+python/Java Implement Database navigation operations (add, delete, edit etc.).
+
+
+import pymongo
+from bson import ObjectId
+from flask import Flask, request, render_template
+
+# MongoDB Connection
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client["mydatabase"]
+
+app = Flask(__name__)
+
+# Add Data
+@app.route('/add', methods=['POST'])
+def add_data():
+    name = request.form['name']
+    email = request.form['email']
+    db.users.insert_one({"name": name, "email": email})
+    return "Record added successfully"
+
+# Delete Data
+@app.route('/delete/<string:id>', methods=['GET'])
+def delete_data(id):
+    db.users.delete_one({"_id": ObjectId(id)})
+    return "Record deleted successfully"
+
+# Edit Data
+@app.route('/edit/<string:id>', methods=['POST'])
+def edit_data(id):
+    name = request.form['name']
+    email = request.form['email']
+    db.users.update_one({"_id": ObjectId(id)}, {"$set": {"name": name, "email": email}})
+    return "Record updated successfully"
+
+# Fetch and display data
+@app.route('/')
+def display_data():
+    users = db.users.find()
+    return render_template('index.html', users=users)
+
+if __name__ == '__main__':
+    app.run(debug=True)

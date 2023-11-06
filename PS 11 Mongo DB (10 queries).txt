@@ -1,0 +1,42 @@
+11)
+Design and Implement any 10 query using MongoDB
+
+
+Find all products:
+db.products.find({})
+
+
+Find products by a specific field:
+db.products.find({ category: "Electronics" })
+
+
+Find products with a price less than a certain value:
+db.products.find({ price: { $lt: 50 } })
+
+
+Find products with a price between a range:
+db.products.find({ price: { $gte: 50, $lte: 100 } })
+
+
+Find products with specific fields projected:
+db.products.find({}, { name: 1, price: 1, _id: 0 })
+
+
+Sort products by a field:
+db.products.find().sort({ price: 1 })
+
+
+Limit the number of results:
+db.products.find().sort({ price: 1 }).limit(5)
+
+
+Find products with a specific text search:
+db.products.find({ $text: { $search: "smartphone" } })
+
+
+Update a specific product's field:
+db.products.updateOne({ name: "iPhone" }, { $set: { price: 799 } })
+
+
+Delete products by a specific field:
+db.products.deleteMany({ category: "Clothing" })

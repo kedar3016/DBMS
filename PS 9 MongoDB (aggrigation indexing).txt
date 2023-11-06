@@ -1,0 +1,29 @@
+9)
+Implement queries for aggregation and indexing with suitable example using MongoDB.
+
+Aggrigation:
+
+insert many
+
+{ "_id": 1, "name": "Alice", "age": 25 }
+{ "_id": 2, "name": "Bob", "age": 30 }
+{ "_id": 3, "name": "Charlie", "age": 35 }
+
+db.users.aggregate([
+    {
+        $group: {
+            _id: null,
+            avgAge: { $avg: "$age" }
+        }
+    }
+])
+
+{ "_id": null, "avgAge": 30 }
+
+
+Indexing:
+
+db.users.createIndex({ name: 1 })
+
+db.users.getIndexes();
+db.users.find({ name: "Alice" })

@@ -1,0 +1,119 @@
+4) PLSQL
+
+Unnamed PL/SQL code block: Use of Control structure and Exception handling is 
+mandatory.
+a) Write a PL/SQL program to check whether a number is even or odd.
+b) Write a program in PL/SQL to update the salary of a specifc employee by 8%. 
+Table : Employee (Empid, Ename, Salary, Designation)
+
+a)
+DECLARE
+    num_to_check NUMBER := 10; -- Replace with the number you want to check
+BEGIN
+    IF MOD(num_to_check, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(num_to_check || ' is an even number.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(num_to_check || ' is an odd number.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred.');
+END;
+/
+
+b)
+
+create table Employee(
+emp_id int,
+salary int
+);
+
+insert into Employee values(101,20000);
+
+DECLARE
+    v_emp_id NUMBER := 101; 
+    v_new_salary NUMBER;
+BEGIN
+    SELECT Salary * 1.08
+    INTO v_new_salary
+    FROM Employee
+    WHERE emp_id = v_emp_id;
+    
+    UPDATE Employee
+    SET Salary = v_new_salary
+    WHERE emp_id = v_emp_id;
+    
+    DBMS_OUTPUT.PUT_LINE('Salary updated for Employee ID ' || v_emp_id);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee not found.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred.');
+END;
+
+select * from Employee;
+
+
+
+Schema: 1. Borrower(Rollin, Name, DateofIssue, NameofBook, Status) 
+ 2. Fine(Roll_no,Date,Amt)  Accept roll_no& name of book from user. Check the 
+number of days (from date of issue), if days are between 15 to 30 then fine amount 
+will be Rs 5per day.  If no. of days>30, per day fine will be Rs 50 per day & for days 
+less than 30, Rs. 5 per day.  After submitting the book, status will change from I to 
+R.  If condition of fine is true, then details will be stored into fine table
+
+
+create table Borrower(
+roll_no int,
+Name varchar(10),
+DateofIssue date,
+NameofBook Varchar2(100),
+Status varchar(10)
+);
+
+create table Fine(
+roll_no int references Borrower(roll_no),
+cdate date,
+Amt int
+);
+
+
+declare
+
+date of issue date;
+days since issue int; 
+person rollno int; 
+book_name varchar(20);
+fine int := 0;
+
+begin
+
+dbms_output.put_line('Enter the rollno of person'); 
+person rollno := &person rollno;
+dbms_output.put_line('Enter the name of book'); 
+book_name := &book_name;
+
+select date of issue into date of issue 
+from Borrower where rollno = person_rollno and name_of_book=book_name;
+
+days since issue := current_date-date_of_issue;
+if(days_since_issue> 15 and days_since_issue < 30) then 
+fine := 5 (days_since_issue-15);
+
+elseif (days_since_issue> 30) then 
+fine (5*15) + 50 *(days_since_issue - 30);
+
+end if;
+
+update Borrower
+set status='R' where rollno = person_rollno; 
+if(fine != 0) then
+
+insert into fine values(person_rollno, current_date, fine);
+
+end if; 
+exception
+
+when no_data_found then dbms_output.put_line('Did not find data!');
+end;
+

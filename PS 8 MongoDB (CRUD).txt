@@ -1,0 +1,30 @@
+8)Mongo DB crud operation
+
+Implement MongoDB Queries using CRUD operations. (Use CRUD operations, SAVE 
+method, logical operators
+
+All in javascript
+
+
+1) create (insert) document:
+db.collectionName.insertOne({ id:1, name:'rushi' });
+
+
+2) Read (Query) Documents:
+db.collectionName.find();
+
+db.collectionName.find({
+  $and: [{ key1: value1 }, { key2: value2 }]
+});
+
+
+3) Update Documents
+db.collectionName.updateOne(
+  { id: 1 },
+  { $set: { name: Rohan } }
+);
+
+
+4) Delete Documents:
+db.collectionName.deleteOne({ id: 1 });
+

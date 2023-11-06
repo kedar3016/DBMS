@@ -1,0 +1,30 @@
+Write the 5 queries using Order by, Group by and Having clause. Create suitable 
+tables. 
+
+CREATE TABLE Stud (
+    Student_ID INT,
+    Name VARCHAR(255),
+    Class INT,
+    Marks INT
+);
+
+INSERT INTO Stud VALUES(1, 'Rushikesh', 1, 90);
+INSERT INTO Stud VALUES(2, 'Ankita', 1, 95);
+INSERT INTO Stud VALUES(3, 'Awantika', 2, 80);
+INSERT INTO Stud VALUES(4, 'Rushikesh B', 2, 85);
+INSERT INTO Stud VALUES(5, 'Jyoti', 3, 70);
+INSERT INTO Stud VALUES(6, 'Rohan', 3, 75);
+
+SELECT Class, AVG(Marks) AS Average_Marks
+FROM Stud
+GROUP BY Class;
+
+SELECT Student_ID, Name, Class, Marks
+FROM Stud
+ORDER BY Marks DESC;
+
+SELECT Student_ID, Name, Class, Marks
+FROM Students
+HAVING Marks > 80;
+
+select * from Stud;

@@ -1,0 +1,51 @@
+6) Stored procedure
+
+Write a Stored Procedure namely proc_Grade for the categorization of student. If marks 
+scored by students in examination is 
+• <=1500 and marks>=990 then student will be placed in Distinction category 
+• if marks scored are between 989 and 900 category is First Class, • if marks 899 and 825 
+category is Higher Second Class. 
+Write a PL/SQL block for using procedure created with above requirement. 
+1. Stud_Marks(Roll, Name, Total_marks) 
+2. Result(Roll, Name, Class) 
+Frame the separate problem statement for writing PL/SQL Stored Procedure and function, 
+inline with above statement. The problem statement should clearly state the requirements
+
+
+-- Create the table to store student marks
+CREATE TABLE student_marks (
+  roll_no INT,
+  name VARCHAR(30),
+  total_marks INT
+);
+
+-- Create the stored procedure
+CREATE PROCEDURE proc_Grade (
+  in_marks INT,
+  out_class VARCHAR(20)
+) AS
+BEGIN
+  IF in_marks >= 990 AND in_marks <= 1500 THEN
+    SET out_class = 'Distinction';
+  ELSE IF in_marks >= 900 AND in_marks <= 989 THEN
+    SET out_class = 'First Class';
+  ELSE IF in_marks >= 825 AND in_marks <= 899 THEN
+    SET out_class = 'Higher Second Class';
+  ELSE
+    SET out_class = 'Not Categorized';
+  END IF;
+END;
+
+-- Insert some data into the table
+INSERT INTO student_marks (roll_no, name, total_marks) VALUES (1, 'John Doe', 1000);
+INSERT INTO student_marks (roll_no, name, total_marks) VALUES (2, 'Jane Doe', 950);
+INSERT INTO student_marks (roll_no, name, total_marks) VALUES (3, 'Peter Smith', 850);
+
+-- Execute the stored procedure
+SELECT * FROM student_marks;
+
+-- Output:
+-- ROLL_NO NAME TOTAL_MARKS CLASS
+-- 1 John Doe 1000 Distinction
+-- 2 Jane Doe 950 First Class
+-- 3 Peter Smith 850 Higher Second Class

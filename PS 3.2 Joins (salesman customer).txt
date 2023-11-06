@@ -1,0 +1,56 @@
+3.2 all types of joins
+
+Design SQL queries for suitable database application using SQL DML statements: all types 
+of Join.
+Salesman(salesman_id, name, city, commission )
+Customer(customer_id, cust_name,city,grade,salesman_id) 
+1) write a SQL query to find the salesperson and customer who reside in the same city. 
+Return Salesman, cust_name and city.
+2) write a SQL query to find salespeople who received commissions of more than 12 
+percent from the company. Return Customer Name, customer city, Salesman, 
+commission.
+3) write a SQL query to display the customer name, customer city, grade, salesman 
+name, salesman city. The results should be sorted by ascending customer_id.
+4) Write a SQL statement to generate a list in ascending order of salespersons who work 
+either for one or more customers or have not yet joined any of the customers
+
+
+create table Salesman(
+salesman_id int,
+name varchar(10),
+city varchar(10),
+commission int
+);
+
+create table Customer(
+customer_id int,
+cust_name varchar(10),
+city varchar(10),
+grade int,
+salesman_id int
+);
+
+
+1)
+SELECT salesman.name, customer.cust_name, customer.city
+FROM salesman
+INNER JOIN customer
+ON salesman.city = customer.city;
+
+2) SELECT customer.cust_name, customer.city, salesman.name, salesman.commission
+FROM customer
+INNER JOIN salesman
+ON customer.salesman_id = salesman.salesman_id
+WHERE salesman.commission > 0.12;
+
+3) SELECT customer.cust_name, customer.city, customer.grade, salesman.name, salesman.city
+FROM customer
+INNER JOIN salesman
+ON customer.salesman_id = salesman.salesman_id
+ORDER BY customer.customer_id;
+
+4) SELECT salesman.name
+FROM salesman
+LEFT JOIN customer
+ON salesman.salesman_id = customer.salesman_id
+ORDER BY salesman.salesman_id;

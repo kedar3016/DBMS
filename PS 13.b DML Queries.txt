@@ -1,0 +1,27 @@
+Write any 5 DML queries. Create suitable tables.
+
+
+CREATE TABLE students (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  age INT NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+INSERT INTO students (name, age, city) VALUES
+('John Doe', 20, 'New York'),
+('Jane Doe', 21, 'Los Angeles'),
+('Peter Smith', 22, 'Chicago'),
+('Sarah Jones', 23, 'San Francisco'),
+('Michael Brown', 24, 'Seattle');
+
+
+UPDATE students SET age = 25 WHERE name = 'John Doe';
+
+
+DELETE FROM students WHERE id = 5;
+
+
+SELECT * FROM students;

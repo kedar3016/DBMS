@@ -1,0 +1,22 @@
+5) PLSQL cursor
+
+Write a PL/SQL block of code using parameterized Cursor, that will merge the data available 
+in the newly created table N_RollCall with the data available in the table O_RollCall. If the 
+data in the first table already exist in the second table then that data should be skipped. Frame 
+the separate problem statement for writing PL/SQL block to implement all types
+
+DECLARE
+  CURSOR merge_cursor IS
+    SELECT *
+    FROM N_RollCall;
+BEGIN
+  FOR rec IN merge_cursor LOOP
+   IF NOT EXISTS (SELECT 1 FROM O_RollCall WHERE id = rec.id) THEN
+      INSERT INTO O_RollCall (id, column1, column2, ...)
+      VALUES (rec.id, rec.column1, rec.column2, ...);
+    END IF;
+  END LOOP;
+  
+  COMMIT;
+END;
+/

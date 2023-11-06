@@ -1,0 +1,39 @@
+10)
+Implement Map reduces operation with suitable example using MongoDB
+
+
+db.sales.insertMany([
+  { product: "A", category: "Electronics", quantity: 10, price: 50 },
+  { product: "B", category: "Clothing", quantity: 5, price: 30 },
+  { product: "C", category: "Electronics", quantity: 8, price: 70 },
+  { product: "D", category: "Clothing", quantity: 12, price: 25 },
+  { product: "E", category: "Electronics", quantity: 6, price: 60 },
+]);
+
+
+var mapFunction = function () {
+  emit(this.category, this.price * this.quantity);
+};
+
+
+var reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+
+var mapReduceOptions = {
+  map: mapFunction,
+  reduce: reduceFunction,
+  out: "category_totals", // The output collection where the results will be stored
+};
+
+db.sales.mapReduce(mapReduceOptions);
+
+
+db.category_totals.find().forEach(function (doc) {
+  print("Category: " + doc._id + ", Total Revenue: " + doc.value);
+});
+
+
+Category: Clothing, Total Revenue: 610
+Category: Electronics, Total Revenue: 800

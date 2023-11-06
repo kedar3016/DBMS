@@ -1,0 +1,49 @@
+create table emp_25(
+Empno int primary key,
+ename varchar(20),
+job varchar(20),
+mgr int,
+joined_date date,
+salary int,
+commission int,
+deptno int,
+address varchar(20)
+);
+
+insert into emp_25 values(1001,'nilesh','clerk',1005,'dec-17-1995',2800,600,20,'nashik');
+
+insert into emp_25 values(1002,'rushi','salesman',1003,'dec-20-1995',5000,1200,300,'pune');
+
+
+insert into emp_25 values(1003,'amit','manager',1004,'dec-2-1995',4800,700,30,'mumbai');
+
+select * from emp_25;
+
+select * from emp_25 where salary between 5000 and 10000;
+
+
+select * from emp_25 where ename like 'a%';
+
+
+select * from emp_25 order by empno desc ;
+select * from emp_25 where commission is not null;
+
+
+select min(salary) from emp_25 ;
+
+select max(salary) from emp_25;
+
+select avg(salary) from emp_25;
+
+select * from emp_25 where depa is not null;
+
+ 
+select * from emp_25 order by salary asc ;
+
+
+select * from emp_25 where depa is not null;
+
+ 
+select * from emp_25 where salary>5000;
+
+select distinct ename from emp_25;

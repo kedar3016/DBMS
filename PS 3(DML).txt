@@ -1,0 +1,54 @@
+3)
+
+Design SQL queries for suitable database application using SQL DML statements: SubQuery and View
+Use suitable tables. Employee ( Emp id, First_name, Last_name, Salary, Designation, 
+Dept_no). 
+Department(Dept_No, Dept_Name, Location)
+a) write a SQL query to find those employees who receive a higher salary than the 
+employee with ID 163. Return first name, last name. 
+b) write a SQL query to find out which employees have the same designation as the 
+employee whose ID is 169. Return first name, last name, department ID
+c) write a SQL query to find those employees who earn more than the average salary. 
+Return employee ID, first name, last name.
+d) Display a record who has minimum salary
+e) Display a record who has maximum salary
+f) Create view on Department and Employee table.
+g) Create sequence.
+h) Create index on emp_id
+
+
+
+
+a) SELECT first_name, last_name
+FROM employee
+WHERE salary > (SELECT salary FROM employee WHERE emp_id = 163);
+
+b) SELECT first_name, last_name, dept_no
+FROM employee
+WHERE designation = (SELECT designation FROM employee WHERE emp_id = 169);
+
+c) SELECT emp_id, first_name, last_name
+FROM employee
+WHERE salary > (SELECT AVG(salary) FROM employee);
+
+d) SELECT *
+FROM employee
+WHERE salary = (SELECT MIN(salary) FROM employee);
+
+e) SELECT *
+FROM employee
+WHERE salary = (SELECT MAX(salary) FROM employee);
+
+f) CREATE VIEW emp_dept
+AS
+SELECT *
+FROM employee
+JOIN department
+ON employee.dept_no = department.dept_no;
+
+g) CREATE SEQUENCE emp_seq
+START WITH 1
+INCREMENT BY 1;
+
+h) CREATE INDEX emp_id_idx
+ON employee (emp_id);
